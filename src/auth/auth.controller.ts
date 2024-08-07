@@ -22,9 +22,12 @@ export class AuthController {
   @HttpCode(200)
   signup(@Req() req, @Body() createAuthDto: CreateAuthDto) {
     const { captcha } = createAuthDto;
-    // if (captcha.toLowerCase() !== req.session.code.toLowerCase()) {
-    //   return '验证码错误';
-    // }
+    if (
+      req.session.code &&
+      captcha.toLowerCase() !== req.session.code.toLowerCase()
+    ) {
+      return '验证码错误';
+    }
     return this.authService.register(createAuthDto);
   }
 

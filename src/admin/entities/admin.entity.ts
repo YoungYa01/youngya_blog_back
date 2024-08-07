@@ -40,6 +40,14 @@ export class Admin {
     default: '',
   })
   role: string;
+  @Column({
+    nullable: false,
+    name: 'avatar',
+    type: 'varchar',
+    length: 255,
+    default: '',
+  })
+  avatar: string;
   @CreateDateColumn({
     nullable: false,
     name: 'created_at',

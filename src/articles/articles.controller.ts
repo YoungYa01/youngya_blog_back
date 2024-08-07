@@ -12,6 +12,7 @@ import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginateType } from '../utils/types';
+import { Public } from "../common/public.decorator";
 
 @Controller('articles')
 export class ArticlesController {
@@ -23,6 +24,7 @@ export class ArticlesController {
   }
 
   @Post()
+  @Public()
   findAll(
     @Query() params: PaginateType,
     @Body() createArticleDto: CreateArticleDto | undefined,
@@ -31,6 +33,7 @@ export class ArticlesController {
   }
 
   @Get(':id')
+  @Public()
   findOne(@Param('id') id: string) {
     return this.articlesService.findOne(+id);
   }
