@@ -18,8 +18,11 @@ export class JwtAuthStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
 
+  /**
+   * 验证token，回调函数，自动调用
+   * @param payload
+   */
   async validate(payload: JwtPayload) {
-    console.log(payload.username);
     const { username } = payload;
     return {
       username,

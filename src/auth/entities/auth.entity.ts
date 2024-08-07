@@ -15,6 +15,7 @@ export class Auth {
     name: 'username',
     type: 'varchar',
     length: 50,
+    default: 'admin',
   })
   username: string;
   @Column({
@@ -22,6 +23,7 @@ export class Auth {
     name: 'email',
     type: 'varchar',
     length: 50,
+    default: '',
   })
   email: string;
   @Column({
@@ -29,6 +31,7 @@ export class Auth {
     name: 'password',
     type: 'varchar',
     length: 255,
+    default: '$10$grUZo6efdjQJ7AzoEjBF6O.F1Y.NN5mnZS.U6xTMPOe2lrlsWhjHy',
   })
   password: string;
   @Column({

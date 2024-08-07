@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { CreateAuthDto } from './dto/create-auth.dto';
 import { Auth } from './entities/auth.entity';
 import { Repository } from 'typeorm';
@@ -6,13 +6,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcryptjs from 'bcryptjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { JwtService } from '@nestjs/jwt';
-import { CaptchaObj } from "svg-captcha";
-import * as svgCaptcha from "svg-captcha";
+import { CaptchaObj } from 'svg-captcha';
+import * as svgCaptcha from 'svg-captcha';
 
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(Auth) private readonly user: Repository<Auth>,
+    @InjectRepository(Auth)
+    private readonly user: Repository<Auth>,
     private readonly JwtService: JwtService,
   ) {}
 
@@ -21,16 +22,23 @@ export class AuthService {
    * @param signupData
    */
   async register(signupData: CreateAuthDto) {
-    if (signupData.password.length >= 20) return '密码过长';
+    if (signupData.password && signupData.password?.length >= 20)
+      return '密码过长';
     const findUser = await this.user.findOne({
       where: { username: signupData.username },
     });
     if (findUser && findUser.username === signupData.username)
-      return '用户已存在';
+      return {
+        code: HttpStatus.NOT_FOUND,
+        message: '用户名已存在',
+      };
     // 对密码进行加密处理
-    signupData.password = bcryptjs.hashSync(signupData.password, 10);
+    signupData.password = bcryptjs.hashSync(signupData.password);
     await this.user.save(signupData);
-    return '注册成功';
+    return {
+      code: HttpStatus.OK,
+      message: '注册成功',
+    };
   }
 
   /**
@@ -38,24 +46,36 @@ export class AuthService {
    * @param loginData
    */
   async login(loginData: CreateAuthDto) {
+    console.log(loginData);
+    if (!loginData.username) return '用户名不能为空';
     if (loginData.role !== 'admin') return '权限不足';
     const findUser = await this.user.findOne({
       where: { username: loginData.username },
     });
     // 没有找到
-    if (!findUser) return '用户不存在';
-
+    if (!findUser)
+      return {
+        code: HttpStatus.NOT_FOUND,
+        message: '用户不存在',
+      };
     // 找到了对比密码
     const compareRes: boolean = bcryptjs.compareSync(
       loginData.password,
       findUser.password,
     );
     // 密码不正确
-    if (!compareRes) return '密码不正确';
+    if (!compareRes) {
+      console.log(loginData.password, findUser.password);
+      return {
+        code: HttpStatus.UNAUTHORIZED,
+        message: '密码错误',
+      };
+    }
 
     const payload = { username: findUser.username };
 
     return {
+      code: HttpStatus.OK,
       token: this.JwtService.sign(payload),
     };
   }
@@ -69,7 +89,7 @@ export class AuthService {
       fontSize: 50, //文字大小
       width: 100, //宽度
       height: 34, //高度
-      background: `#${Math.random().toString(16).substr(-6)}`, //背景颜色
+      background: '#fff', //背景颜色
     });
   }
 }

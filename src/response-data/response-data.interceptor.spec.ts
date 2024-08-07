@@ -1,7 +1,7 @@
-import { ResponseDataInterceptor } from './response-data.interceptor';
+import { ResponseInterceptor } from './response-data.interceptor';
 
 describe('ResponseDataInterceptor', () => {
   it('should be defined', () => {
-    expect(new ResponseDataInterceptor()).toBeDefined();
+    expect(new ResponseInterceptor()).toBeDefined();
   });
 });

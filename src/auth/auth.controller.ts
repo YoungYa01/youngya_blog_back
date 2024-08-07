@@ -1,7 +1,16 @@
-import { Controller, Post, Body, Req, HttpCode, Get, Res } from "@nestjs/common";
+import {
+  Controller,
+  Post,
+  Body,
+  Req,
+  HttpCode,
+  Get,
+  Res,
+  HttpStatus,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
-import { Public } from 'src/common/public.decorator';
+import { Public } from '../common/public.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -13,9 +22,9 @@ export class AuthController {
   @HttpCode(200)
   signup(@Req() req, @Body() createAuthDto: CreateAuthDto) {
     const { captcha } = createAuthDto;
-    if (captcha !== req.session.code) {
-      return '验证码错误';
-    }
+    // if (captcha.toLowerCase() !== req.session.code.toLowerCase()) {
+    //   return '验证码错误';
+    // }
     return this.authService.register(createAuthDto);
   }
 
@@ -23,7 +32,17 @@ export class AuthController {
   @Public()
   @Post('/login')
   @HttpCode(200)
-  login(@Body() loginData: CreateAuthDto) {
+  login(@Req() req, @Body() loginData: CreateAuthDto) {
+    const { captcha } = loginData;
+    if (
+      req.session.code &&
+      captcha.toLowerCase() !== req.session.code.toLowerCase()
+    ) {
+      return {
+        code: HttpStatus.BAD_REQUEST,
+        message: '验证码错误',
+      };
+    }
     return this.authService.login(loginData);
   }
   /**
