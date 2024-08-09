@@ -14,7 +14,7 @@ import { CreateTagDto } from './dto/create-tag.dto';
 import { UpdateTagDto } from './dto/update-tag.dto';
 import { PaginateType } from '../utils/types';
 
-@Controller('tags')
+@Controller('api/tags')
 export class TagsController {
   constructor(private readonly tagsService: TagsService) {}
 

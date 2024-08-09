@@ -9,6 +9,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.grard';
 import { TagsModule } from './tags/tags.module';
 import { UploadModule } from './upload/upload.module';
 import { ArticlesModule } from './articles/articles.module';
+import { PraiseModule } from './praise/praise.module';
 
 @Module({
   imports: [
@@ -37,6 +38,7 @@ import { ArticlesModule } from './articles/articles.module';
     TagsModule,
     UploadModule,
     ArticlesModule,
+    PraiseModule,
   ],
   controllers: [AppController],
   providers: [

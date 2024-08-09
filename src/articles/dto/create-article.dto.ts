@@ -5,4 +5,5 @@ export class CreateArticleDto {
   content: string;
   createdAt: Date;
   tagList: number[];
+  cover: string;
 }

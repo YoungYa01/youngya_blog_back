@@ -25,6 +25,13 @@ async function bootstrap() {
     prefix: '/public',
   });
 
+  // 设置跨域
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
+
   // 全局响应拦截器
   // app.useGlobalInterceptors(new ResponseInterceptor());
   // 全局异常过滤器

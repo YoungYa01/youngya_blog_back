@@ -35,6 +35,14 @@ export class Article {
   })
   content: string;
   @Column({
+    name: 'cover',
+    type: 'varchar',
+    length: 255,
+    nullable: false,
+    comment: '封面',
+  })
+  cover: string;
+  @Column({
     name: 'created_at',
     type: 'timestamp',
     nullable: false,

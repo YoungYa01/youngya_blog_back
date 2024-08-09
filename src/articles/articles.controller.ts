@@ -12,9 +12,9 @@ import { ArticlesService } from './articles.service';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { UpdateArticleDto } from './dto/update-article.dto';
 import { PaginateType } from '../utils/types';
-import { Public } from "../common/public.decorator";
+import { Public } from '../common/public.decorator';
 
-@Controller('articles')
+@Controller('api/articles')
 export class ArticlesController {
   constructor(private readonly articlesService: ArticlesService) {}
 

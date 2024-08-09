@@ -38,6 +38,9 @@ dependencies:
   fork-ts-checker-webpack-plugin:
     specifier: ^9.0.2
     version: 9.0.2(typescript@5.5.4)(webpack@5.93.0)
+  ip2region:
+    specifier: ^2.3.0
+    version: 2.3.0(@types/node@20.14.13)
   multer:
     specifier: 1.4.5-lts.1
     version: 1.4.5-lts.1
@@ -3175,6 +3178,14 @@ packages:
       strip-ansi: 6.0.1
       wrap-ansi: 6.2.0
     dev: true
+
+  /ip2region@2.3.0(@types/node@20.14.13):
+    resolution: {integrity: sha512-zV5Xsadzrx9Ej6heoyhbXMsfGWWQ3C6bAIYStrHhw9kzLpGpVNlnAyRBxxPgxA1GNqr1Ti7oUxcWsMWNN3jZBg==}
+    peerDependencies:
+      '@types/node': '*'
+    dependencies:
+      '@types/node': 20.14.13
+    dev: false
 
   /ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}

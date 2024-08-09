@@ -24,7 +24,8 @@ export class ArticlesService {
     if (
       !createArticleDto.titleZH ||
       !createArticleDto.content ||
-      !createArticleDto.tagList
+      !createArticleDto.tagList ||
+      !createArticleDto.cover
     ) {
       return {
         code: HttpStatus.BAD_REQUEST,
@@ -36,10 +37,13 @@ export class ArticlesService {
       const tagsList = await this.tagsRepository.findBy({
         id: In(tags),
       });
+      console.log('=============');
+      console.log(createArticleDto);
       const article = new Article();
       article.titleZH = createArticleDto.titleZH;
       article.titleEN = createArticleDto.titleEN;
       article.content = createArticleDto.content;
+      article.cover = createArticleDto.cover;
       article.createdAt = new Date();
       article.tags = tagsList;
       const res = await this.articleRepository.save(article);
@@ -109,7 +113,8 @@ export class ArticlesService {
     if (
       !updateArticleDto.titleZH ||
       !updateArticleDto.content ||
-      !updateArticleDto.tagList
+      !updateArticleDto.tagList ||
+      !updateArticleDto.cover
     ) {
       return {
         code: HttpStatus.BAD_REQUEST,
@@ -124,9 +129,11 @@ export class ArticlesService {
     const article = await this.articleRepository.findOne({
       where: { id },
     });
+    console.log(updateArticleDto);
     article.titleZH = updateArticleDto.titleZH;
     article.titleEN = updateArticleDto.titleEN;
     article.content = updateArticleDto.content;
+    article.cover = updateArticleDto.cover;
     article.createdAt = new Date();
     article.tags = tagList;
     const res = await this.articleRepository.save(article);
