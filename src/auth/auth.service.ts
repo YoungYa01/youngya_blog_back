@@ -32,8 +32,8 @@ export class AuthService {
         code: HttpStatus.NOT_FOUND,
         message: '用户名已存在',
       };
-    // 对密码进行加密处理
-    signupData.password = bcryptjs.hashSync(signupData.password);
+    // // 对密码进行加密处理
+    // signupData.password = bcryptjs.hashSync(signupData.password);
     await this.user.save(signupData);
     return {
       code: HttpStatus.OK,
@@ -59,10 +59,11 @@ export class AuthService {
         message: '用户不存在',
       };
     // 找到了对比密码
-    const compareRes: boolean = bcryptjs.compareSync(
-      loginData.password,
-      findUser.password,
-    );
+    // const compareRes: boolean = bcryptjs.compareSync(
+    //   loginData.password,
+    //   findUser.password,
+    // );
+    const compareRes: boolean = loginData.password === findUser.password;
     // 密码不正确
     if (!compareRes) {
       console.log(loginData.password, findUser.password);

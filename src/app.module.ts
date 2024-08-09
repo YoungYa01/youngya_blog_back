@@ -15,7 +15,7 @@ import { PraiseModule } from './praise/praise.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql', // 数据库类型
-      host: 'localhost', // 数据库ip地址
+      host: 'youngya.top', // 数据库ip地址
       port: 3306, // 端口
       username: 'youngya', // 登录名
       password: 'youngya.123', // 密码
