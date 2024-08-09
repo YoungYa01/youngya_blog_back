@@ -26,7 +26,10 @@ export class AuthController {
       req.session.code &&
       captcha.toLowerCase() !== req.session.code.toLowerCase()
     ) {
-      return '验证码错误';
+      return {
+        code: HttpStatus.BAD_REQUEST,
+        message: '验证码错误',
+      };
     }
     return this.authService.register(createAuthDto);
   }
