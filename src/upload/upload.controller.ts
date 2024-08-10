@@ -17,7 +17,6 @@ export class UploadController {
   @Public()
   @UseInterceptors(FileInterceptor('file'))
   upload(@UploadedFile() file) {
-    console.log(file);
     return {
       code: HttpStatus.OK,
       data: `/public/${file.filename}`,

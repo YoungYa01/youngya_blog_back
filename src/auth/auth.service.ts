@@ -46,7 +46,6 @@ export class AuthService {
    * @param loginData
    */
   async login(loginData: CreateAuthDto) {
-    console.log(loginData);
     if (!loginData.username) return '用户名不能为空';
     if (loginData.role !== 'admin') return '权限不足';
     const findUser = await this.user.findOne({
@@ -66,7 +65,6 @@ export class AuthService {
     const compareRes: boolean = loginData.password === findUser.password;
     // 密码不正确
     if (!compareRes) {
-      console.log(loginData.password, findUser.password);
       return {
         code: HttpStatus.UNAUTHORIZED,
         message: '密码错误',

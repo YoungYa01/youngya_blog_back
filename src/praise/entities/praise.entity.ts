@@ -47,5 +47,5 @@ export class Praise {
     comment: '创建时间',
     default: () => 'CURRENT_TIMESTAMP',
   })
-  craetedAt: Date;
+  createdAt: Date;
 }

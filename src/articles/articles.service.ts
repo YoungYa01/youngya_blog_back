@@ -37,8 +37,6 @@ export class ArticlesService {
       const tagsList = await this.tagsRepository.findBy({
         id: In(tags),
       });
-      console.log('=============');
-      console.log(createArticleDto);
       const article = new Article();
       article.titleZH = createArticleDto.titleZH;
       article.titleEN = createArticleDto.titleEN;
@@ -129,7 +127,6 @@ export class ArticlesService {
     const article = await this.articleRepository.findOne({
       where: { id },
     });
-    console.log(updateArticleDto);
     article.titleZH = updateArticleDto.titleZH;
     article.titleEN = updateArticleDto.titleEN;
     article.content = updateArticleDto.content;
